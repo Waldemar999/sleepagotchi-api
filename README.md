@@ -33,3 +33,5 @@ Use `npm run migrate` to run first migration which creates initial database tabl
 ```bash
 npm run migrate
 ```
+
+Also you can find Swagger documentation at 'http://localhost:8080/api-docs'
