@@ -135,7 +135,6 @@ router.put('/setUsername', authenticateToken, async (req, res, next) => {
     await userService.setUsername(email, username);
 
     res.status(200).send(true);
-
   } catch (error) {
     next(error);
   }

@@ -4,4 +4,4 @@ export async function errorHandler(error, _req, res, next) {
   }
 
   next(error);
-};
+}

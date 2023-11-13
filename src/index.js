@@ -9,9 +9,14 @@ import swaggerDocs from './utils/swagger.js';
 
 dotenv.config();
 
-export class App {
+class App {
+  constructor() {
+    this.config = config.get('app');
+    this.databaseRepositiry = DatabaseRepositiry.getInstance();
+  }
+
   async run() {
-    const port = config.get('app.port');
+    const { port } = this.config;
     const expressApp = express();
 
     expressApp.use(express.json());
@@ -23,9 +28,7 @@ export class App {
 
     expressApp.listen(port, async () => {
       try {
-        const db = DatabaseRepositiry.getInstance();
-
-        await db.connect();
+        await this.databaseRepositiry.connect();
 
         console.log(`Server listening at http://localhost:${port}`);
       } catch (error) {

@@ -14,7 +14,7 @@ export default class UserService {
         console.warn('User with particular email already created!', { email });
         return null;
       }
-    
+
       const createdUser = await this.databaseRepositiry.db.models.users.create({
         email,
         username,
@@ -35,7 +35,9 @@ export default class UserService {
 
   async getUserByEmail(email) {
     try {
-      const user = await this.databaseRepositiry.db.models.users.findOne({ where: { email }, raw: true });
+      const user = await this.databaseRepositiry.db.models.users.findOne(
+        { where: { email }, raw: true },
+      );
 
       if (!user) {
         console.warn('User with provided email not found!', { email });

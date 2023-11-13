@@ -5,7 +5,7 @@ const jwtVerify = util.promisify(jwt.verify);
 
 export async function authenticateToken(req, res, next) {
   try {
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
 
     if (token == null) {
@@ -19,4 +19,4 @@ export async function authenticateToken(req, res, next) {
     console.error('Authentication middleware error', error);
     res.sendStatus(403);
   }
-};
+}
