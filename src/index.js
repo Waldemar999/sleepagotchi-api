@@ -20,13 +20,15 @@ export class App {
     expressApp.use(errorHandlerMiddleware);
 
     expressApp.listen(port, async () => {
-      const db = DatabaseRepositiry.getInstance();
+      try {
+        const db = DatabaseRepositiry.getInstance();
 
-      await db.connect();
-
-      console.log(`Server listening at http://localhost:${port}`);
-
-      //TODO: add error case handling
+        await db.connect();
+  
+        console.log(`Server listening at http://localhost:${port}`);
+      } catch (error) {
+        console.error('Server not started!', error);
+      }
     });
   }
 }

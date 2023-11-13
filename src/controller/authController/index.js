@@ -25,6 +25,7 @@ export default class AuthController {
   }
 
   generateAccessToken(user) {
+    // TODO: implement refresh token
     return jwtSign(user, process.env.SECRET_KEY); // { expiresIn: '1d' }
   }
 }

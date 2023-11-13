@@ -35,6 +35,7 @@ export default class DatabaseRepositiry {
       console.log('Database connection has been established successfully!');
     } catch (error) {
       console.error('Unable to connect to the database: ', error);
+      throw error;
     }
   }
 
@@ -59,6 +60,7 @@ export default class DatabaseRepositiry {
       });
     } catch (error) {
       console.error('Initialization database models error: ', error);
+      throw error;
     }
 
     this.db.models = models;

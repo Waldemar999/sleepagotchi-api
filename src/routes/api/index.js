@@ -6,14 +6,13 @@ const router = Router();
 
 router.use('/user', user);
 
-router.get('/status', async (_req, res, next) => {
+router.get('/status', async (_req, res) => {
   let isDatabaseAlive = false;
   try {
     await DatabaseRepositiry.getInstance().db.sequelize.authenticate();
     isDatabaseAlive = true;
   } catch (error) {
     console.error('Unable to connect to the database: ', error);
-    next(error);
   }
 
   const data = {
