@@ -1,0 +1,11 @@
+{
+    "app": {
+        "port": 8080
+    },
+    "db": {
+        "url": "postgres://<db_user>:<db_password>@localhost/<db_name>",
+        "port": 5984,
+        "dialect": "postgres",
+        "name": "<db_name>"
+    }
+}
