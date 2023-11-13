@@ -5,6 +5,7 @@ export default (sequelize) => {
 
   User.init({
     email: Sequelize.STRING,
+    username: Sequelize.STRING,
     password: Sequelize.STRING,
     UUID: Sequelize.UUID, // TODO: Do we need UUID?
   }, {
