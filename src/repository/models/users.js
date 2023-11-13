@@ -7,7 +7,7 @@ export default (sequelize) => {
     email: Sequelize.STRING,
     username: Sequelize.STRING,
     password: Sequelize.STRING,
-    UUID: Sequelize.UUID, // TODO: Do we need UUID?
+    UUID: Sequelize.UUID,
   }, {
     sequelize,
     modelName: 'users',

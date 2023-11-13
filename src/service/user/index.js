@@ -16,7 +16,7 @@ export default class UserService {
         isDeleted: false,
       });
 
-      console.log('User successfully created', { UUID: user.UUID });
+      console.log('User successfully created', { UUID: user.UUID, email });
 
       return user;
     } catch (error) {
@@ -42,11 +42,12 @@ export default class UserService {
 
   async setUsername(email, username) {
     try {
-      // TODO: improve update method
       const [, updatedUser] = await this.databaseRepositiry.db.models.users.update({ username }, {
         where: { email },
         returning: true,
       });
+
+      console.log('Username successfully updated', { email, username });
 
       return updatedUser[0];
     } catch (error) {
