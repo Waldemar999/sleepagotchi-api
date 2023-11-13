@@ -1,7 +1,10 @@
 import express from 'express';
 import config from 'config';
+import dotenv from 'dotenv';
 import routes from './routes/index.js';
 import DatabaseRepositiry from './repository/index.js';
+
+dotenv.config();
 
 export class App {
   async run() {

@@ -16,11 +16,27 @@ export default class UserController {
         isDeleted: false,
       });
 
-      console.log('User successfully created!', { UUID: user.UUID });
+      console.log('User successfully created', { UUID: user.UUID });
 
       return user;
     } catch (error) {
       console.error('Creating user error: ', error);
+      throw error;
+    }
+  }
+
+  async getUserByEmail(email) {
+    try {
+      const user = await this.databaseRepositiry.db.models.users.findOne({ where: { email }, raw: true });
+      console.log('user', user);
+
+      if (!user) {
+        throw new Error('User with provided email not found!');
+      }
+
+      return user;
+    } catch (error) {
+      console.error('Getting user error: ', { email }, error);
       throw error;
     }
   }
