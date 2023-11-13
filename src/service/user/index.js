@@ -8,19 +8,25 @@ export default class UserService {
 
   async create({ email, username, password }) {
     try {
-      const user = await this.databaseRepositiry.db.models.users.create({
+      const user = await this.getUserByEmail(email);
+
+      if (user !== null) {
+        console.warn('User with particular email already created!', { email });
+        return null;
+      }
+    
+      const createdUser = await this.databaseRepositiry.db.models.users.create({
         email,
         username,
         password,
         UUID: v4(),
-        isDeleted: false,
       });
 
-      // TODO: omit password
+      const { password: omittedPassword, ...userWithoutPassword } = createdUser.get();
 
-      console.log('User successfully created', { UUID: user.UUID, email });
+      console.log('User successfully created', userWithoutPassword);
 
-      return user;
+      return userWithoutPassword;
     } catch (error) {
       console.error('Creating user error: ', error);
       throw error;
@@ -32,7 +38,8 @@ export default class UserService {
       const user = await this.databaseRepositiry.db.models.users.findOne({ where: { email }, raw: true });
 
       if (!user) {
-        throw new Error('User with provided email not found!');
+        console.warn('User with provided email not found!', { email });
+        return null;
       }
 
       return user;
