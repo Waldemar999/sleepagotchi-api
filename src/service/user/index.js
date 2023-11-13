@@ -16,6 +16,8 @@ export default class UserService {
         isDeleted: false,
       });
 
+      // TODO: omit password
+
       console.log('User successfully created', { UUID: user.UUID, email });
 
       return user;

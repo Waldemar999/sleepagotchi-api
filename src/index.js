@@ -1,9 +1,11 @@
 import express from 'express';
 import config from 'config';
 import dotenv from 'dotenv';
+
 import routes from './controller/index.js';
 import DatabaseRepositiry from './repository/index.js';
 import { errorHandler as errorHandlerMiddleware } from './middlewares/errorHandler.js';
+import swaggerDocs from './utils/swagger.js';
 
 dotenv.config();
 
@@ -24,12 +26,14 @@ export class App {
         const db = DatabaseRepositiry.getInstance();
 
         await db.connect();
-  
+
         console.log(`Server listening at http://localhost:${port}`);
       } catch (error) {
         console.error('Server not started!', error);
       }
     });
+
+    swaggerDocs(expressApp, port);
   }
 }
 
