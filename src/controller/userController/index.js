@@ -28,7 +28,6 @@ export default class UserController {
   async getUserByEmail(email) {
     try {
       const user = await this.databaseRepositiry.db.models.users.findOne({ where: { email }, raw: true });
-      console.log('user', user);
 
       if (!user) {
         throw new Error('User with provided email not found!');
@@ -40,5 +39,19 @@ export default class UserController {
       throw error;
     }
   }
-}
 
+  async setUsername(email, username) {
+    try {
+      // TODO: improve update method
+      const [, updatedUser] = await this.databaseRepositiry.db.models.users.update({ username }, {
+        where: { email },
+        returning: true,
+      });
+
+      return updatedUser[0];
+    } catch (error) {
+      console.error('Setting username error', { email }, error);
+      throw error;
+    }
+  }
+}

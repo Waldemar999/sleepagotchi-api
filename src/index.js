@@ -3,6 +3,7 @@ import config from 'config';
 import dotenv from 'dotenv';
 import routes from './routes/index.js';
 import DatabaseRepositiry from './repository/index.js';
+import { errorHandler as errorHandlerMiddleware } from './middlewares/errorHandler.js';
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ export class App {
     expressApp.use(express.urlencoded({ extended: false }));
 
     expressApp.use(routes);
+
+    expressApp.use(errorHandlerMiddleware);
 
     expressApp.listen(port, async () => {
       const db = DatabaseRepositiry.getInstance();

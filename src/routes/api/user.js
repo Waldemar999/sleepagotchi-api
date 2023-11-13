@@ -7,7 +7,7 @@ const router = Router();
 const userController = new UserController();
 const authController = new AuthController();
 
-router.post('/signUp', async (req, res) => {
+router.post('/signUp', async (req, res, next) => {
   try {
     const { email, username, password } = req.body;
 
@@ -15,11 +15,11 @@ router.post('/signUp', async (req, res) => {
 
     res.status(201).send(user);
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    next(error);
   }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -27,13 +27,33 @@ router.post('/login', async (req, res) => {
 
     res.status(200).send({ acessToken });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    next(error);
   }
 });
 
-router.put('/setUsername', authenticateToken, () => console.log('setUsername endpoint!'));
+router.put('/setUsername', authenticateToken, async (req, res, next) => {
+  try {
+    const { email, username } = req.body;
 
-router.get('/getUsername', authenticateToken, () => console.log('getUsername endpoint!'));
+    await userController.setUsername(email, username);
 
+    res.status(200).send(true);
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/getUsername', authenticateToken, async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const { username } = await userController.getUserByEmail(email);
+
+    res.status(200).send({ email, username });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

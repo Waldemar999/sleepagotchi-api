@@ -6,26 +6,27 @@ const router = Router();
 
 router.use('/user', user);
 
-router.get('/status', async (_req, res) => {
-    let isDatabaseAlive = false;
-    try {
-      await DatabaseRepositiry.getInstance().db.sequelize.authenticate();
-      isDatabaseAlive = true;
-    } catch (error) {
-      console.error('Unable to connect to the database: ', error);
-    }
+router.get('/status', async (_req, res, next) => {
+  let isDatabaseAlive = false;
+  try {
+    await DatabaseRepositiry.getInstance().db.sequelize.authenticate();
+    isDatabaseAlive = true;
+  } catch (error) {
+    console.error('Unable to connect to the database: ', error);
+    next(error);
+  }
 
-    const data = {
-      status: 200,
-      name: 'API',
-      uptime: process.uptime(),
-      health: {
-        server: true,
-        database: isDatabaseAlive,
-      },
-    };
+  const data = {
+    status: 200,
+    name: 'API',
+    uptime: process.uptime(),
+    health: {
+      server: true,
+      database: isDatabaseAlive,
+    },
+  };
 
-    res.json(data);
-  });
+  res.json(data);
+});
 
 export default router;

@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 export default (sequelize) => {
-  class User extends Sequelize.Model {}
+  class User extends Sequelize.Model { }
 
   User.init({
     email: Sequelize.STRING,
