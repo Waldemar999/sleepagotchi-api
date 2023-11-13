@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import DatabaseRepositiry from '../../repository/index.js';
 
-export default class UserController {
+export default class UserService {
   constructor() {
     this.databaseRepositiry = DatabaseRepositiry.getInstance();
   }

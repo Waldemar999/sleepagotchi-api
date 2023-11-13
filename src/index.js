@@ -1,7 +1,7 @@
 import express from 'express';
 import config from 'config';
 import dotenv from 'dotenv';
-import routes from './routes/index.js';
+import routes from './controller/index.js';
 import DatabaseRepositiry from './repository/index.js';
 import { errorHandler as errorHandlerMiddleware } from './middlewares/errorHandler.js';
 

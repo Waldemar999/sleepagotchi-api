@@ -1,14 +1,14 @@
 import util from 'util';
 import jwt from 'jsonwebtoken';
 import DatabaseRepository from '../../repository/index.js';
-import UserController from '../userController/index.js';
+import UserService from '../user/index.js';
 
 const jwtSign = util.promisify(jwt.sign);
 
-export default class AuthController {
+export default class AuthService {
   constructor() {
     this.databaseRepositiry = DatabaseRepository.getInstance();
-    this.userController = new UserController();
+    this.userController = new UserService();
   }
 
   async login(email, password) {
